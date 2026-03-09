@@ -1,0 +1,29 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# IDE (IntelliJ / Eclipse)
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Systemowe i Logi
+.DS_Store
+*.log
+magazyn.txt
