@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" spacing="15.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.projektroboty.PrimaryController">
+    <padding><Insets bottom="20" left="20" right="20" top="20" /></padding>
+    
+    <Label text="Magazyn Robotów Ogrodowych"><font><Font name="System Bold" size="24.0" /></font></Label>
+    
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Szukaj:" />
+        <TextField fx:id="filterField" promptText="Producent lub Model..." />
+    </HBox>
+
+    <TableView fx:id="tabela" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colProducent" prefWidth="120" text="Producent" />
+            <TableColumn fx:id="colModel" prefWidth="120" text="Model" />
+            <TableColumn fx:id="colTyp" prefWidth="100" text="Typ" />
+            <TableColumn fx:id="colArea" prefWidth="80" text="Max m²" />
+            <TableColumn fx:id="colCena" prefWidth="100" text="Cena (PLN)" />
+            <TableColumn fx:id="colIlosc" prefWidth="60" text="Ilość" />
+        </columns>
+    </TableView>
+
+    <HBox alignment="CENTER_RIGHT">
+        <Label text="Łączna wartość magazynu: " />
+        <Label fx:id="lblSuma" style="-fx-font-weight: bold; -fx-text-fill: green;" text="0.00 PLN" />
+    </HBox>
+
+    <Label text="Dodaj nowego robota:" style="-fx-font-weight: bold;"/>
+    <HBox spacing="10" alignment="CENTER">
+        <TextField fx:id="tfProducent" promptText="Producent" prefWidth="100"/>
+        <TextField fx:id="tfModel" promptText="Model" prefWidth="100"/>
+        <ComboBox fx:id="cbTyp" promptText="Typ" prefWidth="100"/>
+        <TextField fx:id="tfArea" promptText="m²" prefWidth="70"/>
+        <TextField fx:id="tfCena" promptText="Cena" prefWidth="80"/>
+        <TextField fx:id="tfIlosc" promptText="Ilość" prefWidth="60"/>
+        <Button text="Dodaj" onAction="#dodajRobota" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+    </HBox>
+    <Button text="Usuń zaznaczony wiersz" onAction="#usunRobota" style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
+</VBox>
