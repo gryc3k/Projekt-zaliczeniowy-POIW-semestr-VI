@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sklep Kosiarkobot 2.0</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 40px; background-color: #f4f4f9; color: #333; }
+        h1 { color: #2c3e50; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; display: inline-block; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        th, td { padding: 15px; border-bottom: 1px solid #ddd; text-align: left; }
+        th { background-color: #4CAF50; color: white; font-weight: bold; }
+        tr:hover { background-color: #f5f5f5; }
+    </style>
+</head>
+<body>
+    
+    <h1>Magazyn Robotów - Kosiarkobot 2.0</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Producent</th>
+                <th>Model</th>
+                <th>Typ</th>
+                <th>Powierzchnia (m²)</th>
+                <th>Cena (PLN)</th>
+                <th>Ilość sztuk</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="robot : ${roboty}">
+                <td th:text="${robot.id}"></td>
+                <td th:text="${robot.producent}"></td>
+                <td th:text="${robot.model}"></td>
+                <td th:text="${robot.typ}"></td>
+                <td th:text="${robot.area}"></td>
+                <td th:text="${robot.cena}"></td>
+                <td th:text="${robot.ilosc}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

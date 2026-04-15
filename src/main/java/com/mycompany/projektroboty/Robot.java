@@ -1,37 +1,49 @@
 package com.mycompany.projektroboty;
 
-import javafx.beans.property.*;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "roboty") // Tak będzie się nazywać tabela w bazie PostgreSQL
 public class Robot {
-    private final SimpleStringProperty producent;
-    private final SimpleStringProperty model;
-    private final SimpleStringProperty typ;
-    private final SimpleIntegerProperty area;
-    private final SimpleDoubleProperty cena;
-    private final SimpleIntegerProperty ilosc;
 
-    public Robot(String producent, String model, String typ, int area, double cena, int ilosc) {
-        this.producent = new SimpleStringProperty(producent);
-        this.model = new SimpleStringProperty(model);
-        this.typ = new SimpleStringProperty(typ);
-        this.area = new SimpleIntegerProperty(area);
-        this.cena = new SimpleDoubleProperty(cena);
-        this.ilosc = new SimpleIntegerProperty(ilosc);
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // Baza danych potrzebuje unikalnego ID (Klucz główny)
+
+    private String producent;
+    private String model;
+    private String typ;
+    private int area;
+    private double cena;
+    private int ilosc;
+
+    // Pusty konstruktor wymagany przez Hibernate
+    public Robot() {
     }
 
-    // Gettery Property dla TableView
-    public StringProperty producentProperty() { return producent; }
-    public StringProperty modelProperty() { return model; }
-    public StringProperty typProperty() { return typ; }
-    public IntegerProperty areaProperty() { return area; }
-    public DoubleProperty cenaProperty() { return cena; }
-    public IntegerProperty iloscProperty() { return ilosc; }
+    // Konstruktor do wygodnego dodawania nowych robotów
+    public Robot(String producent, String model, String typ, int area, double cena, int ilosc) {
+        this.producent = producent;
+        this.model = model;
+        this.typ = typ;
+        this.area = area;
+        this.cena = cena;
+        this.ilosc = ilosc;
+    }
 
-    // Zwykłe gettery do zapisu w formacie CSV
-    public String getProducent() { return producent.get(); }
-    public String getModel() { return model.get(); }
-    public String getTyp() { return typ.get(); }
-    public int getArea() { return area.get(); }
-    public double getCena() { return cena.get(); }
-    public int getIlosc() { return ilosc.get(); }
+    // Standardowe Gettery i Settery
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getProducent() { return producent; }
+    public void setProducent(String producent) { this.producent = producent; }
+    public String getModel() { return model; }
+    public void setModel(String model) { this.model = model; }
+    public String getTyp() { return typ; }
+    public void setTyp(String typ) { this.typ = typ; }
+    public int getArea() { return area; }
+    public void setArea(int area) { this.area = area; }
+    public double getCena() { return cena; }
+    public void setCena(double cena) { this.cena = cena; }
+    public int getIlosc() { return ilosc; }
+    public void setIlosc(int ilosc) { this.ilosc = ilosc; }
 }
