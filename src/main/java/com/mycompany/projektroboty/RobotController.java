@@ -2,11 +2,10 @@ package com.mycompany.projektroboty;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-// Zmieniamy @RestController na @Controller, bo teraz zwracamy stronę HTML!
-@Controller 
+@Controller
 public class RobotController {
 
     private final RobotRepository repository;
@@ -15,13 +14,34 @@ public class RobotController {
         this.repository = repository;
     }
 
+    // Główna strona: Lista + Formularz + Suma
     @GetMapping("/")
-    public String pokazWszystkieRoboty(Model model) {
-        // Pobieramy z bazy
+    public String index(Model model) {
         List<Robot> roboty = repository.findAll();
-        // Przekazujemy paczkę danych do pliku HTML pod nazwą "roboty"
-        model.addAttribute("roboty", roboty); 
-        // Spring Boot będzie szukał pliku o nazwie "index.html"
-        return "index"; 
+        
+        // Obliczanie łącznej wartości magazynu (Logika biznesowa)
+        double sumaWartosci = roboty.stream()
+                .mapToDouble(r -> r.getCena() * r.getIlosc())
+                .sum();
+
+        model.addAttribute("roboty", roboty);
+        model.addAttribute("nowyRobot", new Robot()); // Pusty obiekt do formularza
+        model.addAttribute("sumaWartosci", sumaWartosci);
+        
+        return "index";
+    }
+
+    // Obsługa dodawania nowego robota
+    @PostMapping("/dodaj")
+    public String dodaj(@ModelAttribute Robot robot) {
+        repository.save(robot);
+        return "redirect:/"; // Po dodaniu odśwież stronę
+    }
+
+    // Obsługa usuwania robota po ID
+    @GetMapping("/usun/{id}")
+    public String usun(@PathVariable Long id) {
+        repository.deleteById(id);
+        return "redirect:/";
     }
 }
