@@ -1,5 +1,6 @@
 package com.mycompany.projektroboty;
 
+import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +14,17 @@ public class RobotController {
 
     @GetMapping("/")
     public String pokazStroneGlowna(Model model) {
-        model.addAttribute("roboty", robotRepository.findAll());
-        // Zmieniono: używamy nazwy "robot"
-        model.addAttribute("robot", new Robot()); 
+        List<Robot> listaRobotow = robotRepository.findAll();
+        model.addAttribute("roboty", listaRobotow);
+        model.addAttribute("robot", new Robot());
+
+        // Obliczanie sumy: cena * ilość dla każdego robota
+        double suma = listaRobotow.stream()
+                .mapToDouble(r -> r.getCena() * r.getIlosc())
+                .sum();
+
+        model.addAttribute("sumaWartosci", suma); // To jest kluczowe!
+
         return "index";
     }
 
