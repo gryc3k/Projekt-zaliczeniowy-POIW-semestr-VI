@@ -31,10 +31,10 @@
                 <td th:text="${robot.area}"></td>
                 <td th:text="${robot.cena}"></td>
                 <td th:text="${robot.ilosc}"></td>
-				<td>
-					<a th:href="@{/edytuj/{id}(id=${robot.id})}" style="color: #4CAF50; text-decoration: none; margin-right: 10px;">Edytuj</a>
-					<a th:href="@{/usun/{id}(id=${robot.id})}" style="color: #f44336; text-decoration: none;">Usuń</a>
-				</td>
+                <td>
+                    <a th:href="@{/edytuj/{id}(id=${robot.id})}" style="color: #4CAF50; text-decoration: none; margin-right: 10px;">Edytuj</a>
+                    <a th:href="@{/usun/{id}(id=${robot.id})}" style="color: #f44336; text-decoration: none;">Usuń</a>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -47,7 +47,7 @@
     <hr>
 
     <h2>Dodaj nowy sprzęt</h2>
-    <form th:action="@{/dodaj}" th:object="${nowyRobot}" method="post">
+    <form th:action="@{/zapisz}" th:object="${robot}" method="post">
         
         <div class="form-group">
             <div>
