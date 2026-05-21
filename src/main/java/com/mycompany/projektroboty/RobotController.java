@@ -4,44 +4,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class RobotController {
 
-    private final RobotRepository repository;
+    @Autowired
+    private RobotRepository robotRepository;
 
-    public RobotController(RobotRepository repository) {
-        this.repository = repository;
+    // ... Twoje obecne metody (np. @GetMapping("/") dla listy) ...
+
+    // 1. Metoda do otwarcia formularza edycji
+    @GetMapping("/edytuj/{id}")
+    public String pokazFormularzEdycji(@PathVariable("id") Long id, Model model) {
+        Robot robot = robotRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Nieprawidłowe ID: " + id));
+        model.addAttribute("robot", robot);
+        return "edytuj"; // Nazwa pliku edytuj.html w folderze templates
     }
 
-    // Główna strona: Lista + Formularz + Suma
-    @GetMapping("/")
-    public String index(Model model) {
-        List<Robot> roboty = repository.findAll();
-        
-        // Obliczanie łącznej wartości magazynu (Logika biznesowa)
-        double sumaWartosci = roboty.stream()
-                .mapToDouble(r -> r.getCena() * r.getIlosc())
-                .sum();
-
-        model.addAttribute("roboty", roboty);
-        model.addAttribute("nowyRobot", new Robot()); // Pusty obiekt do formularza
-        model.addAttribute("sumaWartosci", sumaWartosci);
-        
-        return "index";
-    }
-
-    // Obsługa dodawania nowego robota
-    @PostMapping("/dodaj")
-    public String dodaj(@ModelAttribute Robot robot) {
-        repository.save(robot);
-        return "redirect:/"; // Po dodaniu odśwież stronę
-    }
-
-    // Obsługa usuwania robota po ID
-    @GetMapping("/usun/{id}")
-    public String usun(@PathVariable Long id) {
-        repository.deleteById(id);
-        return "redirect:/";
+    // 2. Metoda do zapisu (możesz użyć swojej obecnej metody @PostMapping("/dodaj"), 
+    // jeśli ona obsługuje też update, albo stworzyć dedykowaną)
+    @PostMapping("/zapisz")
+    public String zapiszRobota(@ModelAttribute("robot") Robot robot) {
+        robotRepository.save(robot); // Hibernate sam wykryje ID i wykona UPDATE zamiast INSERT
+        return "redirect:/"; // Powrót na stronę główną po zapisie
     }
 }

@@ -31,10 +31,10 @@
                 <td th:text="${robot.area}"></td>
                 <td th:text="${robot.cena}"></td>
                 <td th:text="${robot.ilosc}"></td>
-                <td>
-                    <a th:href="@{/usun/{id}(id=${robot.id})}" class="btn-usun" 
-                       onclick="return confirm('Czy na pewno chcesz usunąć tego robota?')">Usuń</a>
-                </td>
+				<td>
+					<a th:href="@{/edytuj/{id}(id=${robot.id})}" style="color: #4CAF50; text-decoration: none; margin-right: 10px;">Edytuj</a>
+					<a th:href="@{/usun/{id}(id=${robot.id})}" style="color: #f44336; text-decoration: none;">Usuń</a>
+				</td>
             </tr>
         </tbody>
     </table>
